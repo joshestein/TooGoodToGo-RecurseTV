@@ -1,12 +1,15 @@
+from datetime import datetime
 import io
 from base64 import encodebytes
 
 import qrcode
 from flask import Flask, render_template
-
+from flask_moment import Moment
 from client import Client
 
 app = Flask(__name__)
+
+moment = Moment(app)
 
 BASE_SHARE_URL = "https://share.toogoodtogo.com"
 LATITUDE = 40.69
@@ -39,6 +42,11 @@ def tgtg_main():
         qr_bytes = io.BytesIO()
         qr_img.save(qr_bytes, format=qr_img.format)
         item["qrcode"] = encodebytes(qr_bytes.getvalue()).decode("ascii")
+
+        item["pickup_interval"]["start"] = datetime.fromisoformat(item["pickup_interval"]["start"])
+        item["pickup_interval"]["end"] = datetime.fromisoformat(item["pickup_interval"]["end"])
+        item["purchase_end"] = datetime.fromisoformat(item["purchase_end"])
+
 
     return render_template("index.html", items=items)
 

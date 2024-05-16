@@ -8,18 +8,53 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Hungry Hippos</title>
+    <link rel='stylesheet' href='{{url_for('static', filename='styles.css')}}' />
+    {{ moment.include_moment() }}
+
   </head>
   <body>
     <p>ALL MY ITEMS HUNGRY BOIS</p>
-    <ul id="items">
+    <section class="items">
       {% for i in items %}
-      <li>
-        <div>{{ i.display_name }}</div>
-        <div>{{ i.item.average_overall_rating.average_overall_rating }}</div>
-        {# Decode base64 bytes#}
-        <img src="data:image/png;base64, {{i.qrcode}}" alt="Share link" />
-      </li>
+      <div class="item">
+        {% if 'cover_picture' in i.store %}
+          {% if 'current_url' in i.store.cover_picture %}
+            <img class="store-image" src="{{i.store.cover_picture.current_url}}" alt="store picture"/>
+          {% endif %}
+        {% endif %}
+
+        <div class="item-info">
+          <h2>{{i.display_name }}</h2>
+
+          {% if 'average_overall_rating' in i.item %}
+            {% if 'average_overall_rating' in i.item.average_overall_rating %}
+              <p>Rating: {{i.item.average_overall_rating.average_overall_rating|round(2)}}</p>
+            {% endif %}
+          {% endif %}
+
+          {% if 'item_price' in i.item %}
+            {% if 'minor_units' in i.item.item_price %}
+              <p>Price: ${{i.item.item_price.minor_units/100}}</p>
+            {% endif %}
+          {% endif %}
+
+          {% if 'pickup_interval' in i %}
+            {% if 'start' in i.pickup_interval %}
+              <p>Pickup start time: {{moment(i.pickup_interval.start).format('HH:mm')}}</p>
+            {% endif %}
+            {% if 'end' in i.pickup_interval %}
+              <p>Pickup end time: {{moment(i.pickup_interval.end).format('HH:mm')}}</p>
+            {% endif %}
+          {% endif %}
+
+          <p>Order window ends {{moment(i.purchase_end).fromNow() }}</>
+        </div>
+
+
+        <img class="qr-code" src="data:image/png;base64, {{i.qrcode}}" alt="Share link" />
+      </div>
+
       {% endfor %}
-    </ul>
+    </section>
   </body>
 </html>
