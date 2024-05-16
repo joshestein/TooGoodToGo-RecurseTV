@@ -1,0 +1,1 @@
+- QR code to open app in personal account
