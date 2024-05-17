@@ -1,10 +1,11 @@
-from datetime import datetime
 import io
 from base64 import encodebytes
+from datetime import datetime
 
 import qrcode
 from flask import Flask, render_template
 from flask_moment import Moment
+
 from client import Client
 
 app = Flask(__name__)
@@ -15,13 +16,6 @@ BASE_SHARE_URL = "https://share.toogoodtogo.com"
 LATITUDE = 40.69
 LONGITUDE = -73.98
 RADIUS = 5
-
-
-def make_qr_code(item_id: str):
-    qr = qrcode.QRCode(image_factory=qrcode.image.svg.SvgPathImage)
-    qr.add_data(f"{BASE_SHARE_URL}/item/{item_id}")
-    qr.make(fit=True)
-    return qr.to_string(encoding="unicode")
 
 
 @app.route("/")
@@ -46,7 +40,6 @@ def tgtg_main():
         item["pickup_interval"]["start"] = datetime.fromisoformat(item["pickup_interval"]["start"])
         item["pickup_interval"]["end"] = datetime.fromisoformat(item["pickup_interval"]["end"])
         item["purchase_end"] = datetime.fromisoformat(item["purchase_end"])
-
 
     return render_template("index.html", items=items)
 
