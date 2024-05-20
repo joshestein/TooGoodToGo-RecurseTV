@@ -13,8 +13,8 @@ app = Flask(__name__)
 moment = Moment(app)
 
 BASE_SHARE_URL = "https://share.toogoodtogo.com"
-LATITUDE = 40.69
-LONGITUDE = -73.98
+LATITUDE = 40.6913289
+LONGITUDE = -73.985069
 RADIUS = 5
 
 
