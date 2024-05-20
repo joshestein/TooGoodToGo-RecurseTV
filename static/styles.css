@@ -33,3 +33,7 @@ body {
   width: 80px;
   border: 1px solid black;
 }
+
+.leaflet-map {
+  height: 200px;
+}
