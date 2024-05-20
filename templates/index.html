@@ -10,6 +10,9 @@
     <title>Hungry Hippos</title>
     <link rel='stylesheet' href='{{url_for('static', filename='styles.css')}}' />
     {{ moment.include_moment() }}
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
 
   </head>
   <body>
@@ -25,8 +28,10 @@
 
         <div class="item-info">
           <h2>{{i.display_name }}</h2>
+            <div id="map-{{loop.index0}}" class="leaflet-map"></div>
+            <div class="duration"></div>
 
-          {% if 'average_overall_rating' in i.item %}
+            {% if 'average_overall_rating' in i.item %}
             {% if 'average_overall_rating' in i.item.average_overall_rating %}
               <p>Rating: {{i.item.average_overall_rating.average_overall_rating|round(2)}}</p>
             {% endif %}
@@ -57,4 +62,36 @@
       {% endfor %}
     </section>
   </body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+              integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+              crossorigin=""></script>
+    <script>
+        const maps = document.querySelectorAll('.leaflet-map');
+        const durations = document.querySelectorAll('.duration');
+        const parsedItems = {{  items|tojson }}
+
+        const recurseLatitude = 40.6913289;
+        const recurseLongitude = -73.985069;
+
+        function drawDirections(index) {
+            const pickupLatitude = parsedItems[index]['pickup_location']['location']['latitude'];
+            const pickupLongitude = parsedItems[index]['pickup_location']['location']['longitude'];
+            const centerLatitude = (recurseLatitude + pickupLatitude) / 2;
+            const centerLongitude = (recurseLongitude + pickupLongitude) / 2;
+
+            const map = L.map(`map-${index}`).setView([centerLatitude, centerLongitude], 16);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            const geoJSON = parsedItems[index]['osm_geojson']
+            L.geoJSON(geoJSON).addTo(map);
+
+            const durationInSeconds = geoJSON['features'][0]['properties']['summary']['duration'];
+            durations[index].innerText = `Walking distance: ${Math.ceil(durationInSeconds/ 60)} minutes`
+        }
+
+        for (const [index, _map] of maps.entries()) drawDirections(index);
+    </script>
 </html>
