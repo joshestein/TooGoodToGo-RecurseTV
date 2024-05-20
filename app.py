@@ -3,10 +3,12 @@ from base64 import encodebytes
 from datetime import datetime
 
 import qrcode
+import requests
 from flask import Flask, render_template
 from flask_moment import Moment
 
 from client import Client
+from config import get_config
 
 app = Flask(__name__)
 
@@ -16,6 +18,19 @@ BASE_SHARE_URL = "https://share.toogoodtogo.com"
 LATITUDE = 40.6913289
 LONGITUDE = -73.985069
 RADIUS = 5
+
+
+def get_osm_directions(store_longitude, store_latitude):
+    config = get_config()
+    api_key = config["OSM_API_KEY"]
+    headers = {
+        "Accept": "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+    }
+    response = requests.get(
+        f"https://api.openrouteservice.org/v2/directions/foot-walking?api_key={api_key}&start={LONGITUDE},{LATITUDE}&end={store_longitude},{store_latitude}",
+        headers=headers,
+    )
+    return response
 
 
 @app.route("/")
@@ -40,6 +55,10 @@ def tgtg_main():
         item["pickup_interval"]["start"] = datetime.fromisoformat(item["pickup_interval"]["start"])
         item["pickup_interval"]["end"] = datetime.fromisoformat(item["pickup_interval"]["end"])
         item["purchase_end"] = datetime.fromisoformat(item["purchase_end"])
+        store_longitude = item["pickup_location"]["location"]["longitude"]
+        store_latitude = item["pickup_location"]["location"]["latitude"]
+        osm_response = get_osm_directions(store_longitude=store_longitude, store_latitude=store_latitude)
+        item["osm_geojson"] = osm_response.json()
 
     return render_template("index.html", items=items)
 
