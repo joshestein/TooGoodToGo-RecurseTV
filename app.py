@@ -38,7 +38,7 @@ def tgtg_main():
     tgtg_client = Client()
 
     items = tgtg_client.client.get_items(
-        favorites_only=False, latitude=LATITUDE, longitude=LONGITUDE, radius=RADIUS, with_stock_only=True, page_size=50
+        favorites_only=False, latitude=LATITUDE, longitude=LONGITUDE, radius=RADIUS, with_stock_only=True, page_size=20
     )
 
     # TODO: only extract important information to send to the client
