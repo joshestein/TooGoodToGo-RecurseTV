@@ -79,7 +79,7 @@
             const centerLatitude = (recurseLatitude + pickupLatitude) / 2;
             const centerLongitude = (recurseLongitude + pickupLongitude) / 2;
 
-            const map = L.map(`map-${index}`).setView([centerLatitude, centerLongitude], 16);
+            const map = L.map(`map-${index}`, {zoomControl: false}).setView([centerLatitude, centerLongitude], 16);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
