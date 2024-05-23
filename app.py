@@ -10,10 +10,6 @@ from flask_moment import Moment
 from client import Client
 from config import get_config
 
-app = Flask(__name__)
-
-moment = Moment(app)
-
 BASE_SHARE_URL = "https://share.toogoodtogo.com"
 LATITUDE = 40.6913289
 LONGITUDE = -73.985069
@@ -59,8 +55,23 @@ def get_items():
         osm_response = get_osm_directions(store_longitude=store_longitude, store_latitude=store_latitude)
         item["osm_geojson"] = osm_response.json()
 
-    return render_template("index.html", items=items)
+    return items
+
+
+def create_app():
+    app = Flask(__name__)
+    moment = Moment(app)
+
+    items = get_items()
+
+    @app.route("/")
+    def tgtg_main():
+        print("render main")
+        return render_template("index.html", items=items)
+
+    return app
 
 
 if __name__ == "__main__":
+    app = create_app()
     app.run(host="0.0.0.0", port=8080)
