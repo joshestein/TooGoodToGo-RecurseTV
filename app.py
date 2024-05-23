@@ -4,6 +4,7 @@ from datetime import datetime
 
 import qrcode
 import requests
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
 from flask_moment import Moment
 
@@ -65,6 +66,10 @@ def create_app():
 
     app = Flask(__name__)
     moment = Moment(app)
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=fetch_items, trigger="interval", minutes=10)
+    scheduler.start()
 
     fetch_items()
 
