@@ -32,10 +32,8 @@ def get_osm_directions(store_longitude, store_latitude):
     return response
 
 
-def fetch_items():
+def fetch_items(tgtg_client: Client):
     global items
-
-    tgtg_client = Client()
 
     items = tgtg_client.client.get_items(
         favorites_only=False, latitude=LATITUDE, longitude=LONGITUDE, radius=RADIUS, with_stock_only=True, page_size=20
@@ -66,12 +64,13 @@ def create_app():
 
     app = Flask(__name__)
     moment = Moment(app)
+    tgtg_client = Client()
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=fetch_items, trigger="interval", minutes=10)
+    scheduler.add_job(func=fetch_items, args=[tgtg_client], trigger="interval", minutes=10)
     scheduler.start()
 
-    fetch_items()
+    fetch_items(tgtg_client)
 
     @app.route("/")
     def tgtg_main():
