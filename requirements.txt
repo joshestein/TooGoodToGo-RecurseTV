@@ -1,5 +1,6 @@
 Flask==3.0.3
 Flask-Moment==1.0.5
 python-dotenv==1.0.1
+pillow==10.3.0
 qrcode==7.4.2
 tgtg==0.17.0
