@@ -44,7 +44,8 @@ body {
 .star-rating-wrapper {
   display: inline-block;
   position: relative;
-  height: 24px;
+  height: 32px;
+  font-size: 32px;
   width: auto;
 }
 
