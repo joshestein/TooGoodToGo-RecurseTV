@@ -33,7 +33,15 @@
 
             {% if 'average_overall_rating' in i.item %}
             {% if 'average_overall_rating' in i.item.average_overall_rating %}
-              <div class="star-rating" style="--rating: {{i.item.average_overall_rating.average_overall_rating}};"></div>
+              <div class="star-rating-wrapper">
+                <div class="star-rating-filled" style="--rating: {{i.item.average_overall_rating.average_overall_rating}}">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <div class="star-rating-empty">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+              </div>
+
             {% endif %}
           {% endif %}
 
