@@ -15,6 +15,8 @@ LATITUDE = 40.6913289
 LONGITUDE = -73.985069
 RADIUS = 5
 
+items = None
+
 
 def get_osm_directions(store_longitude, store_latitude):
     config = get_config()
@@ -29,7 +31,9 @@ def get_osm_directions(store_longitude, store_latitude):
     return response
 
 
-def get_items():
+def fetch_items():
+    global items
+
     tgtg_client = Client()
 
     items = tgtg_client.client.get_items(
@@ -55,14 +59,14 @@ def get_items():
         osm_response = get_osm_directions(store_longitude=store_longitude, store_latitude=store_latitude)
         item["osm_geojson"] = osm_response.json()
 
-    return items
-
 
 def create_app():
+    global items
+
     app = Flask(__name__)
     moment = Moment(app)
 
-    items = get_items()
+    fetch_items()
 
     @app.route("/")
     def tgtg_main():
