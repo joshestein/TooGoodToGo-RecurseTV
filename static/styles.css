@@ -11,7 +11,7 @@ body {
   /* position: fixed; */
   padding: 24px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   /* animation: scroll 60s infinite linear; */
 }
@@ -43,9 +43,8 @@ body {
 .star-rating::after {
   --percent: calc(var(--rating) / 5 * 100%);
   font-size: 32px;
-  content: "★★★★★";
+  content: "*****";
   letter-spacing: 3px;
-  background: black;
   background: linear-gradient(90deg, orange var(--percent), silver var(--percent));
   background-clip: text;
   -webkit-text-fill-color: transparent;
