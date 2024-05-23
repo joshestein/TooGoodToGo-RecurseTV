@@ -33,8 +33,7 @@ def get_osm_directions(store_longitude, store_latitude):
     return response
 
 
-@app.route("/")
-def tgtg_main():
+def get_items():
     tgtg_client = Client()
 
     items = tgtg_client.client.get_items(
