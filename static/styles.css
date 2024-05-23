@@ -8,12 +8,12 @@ body {
 }
 
 .items {
-  /* position: fixed; */
+  position: fixed;
   padding: 24px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  /* animation: scroll 60s infinite linear; */
+  animation: scroll 60s infinite linear;
 }
 
 @keyframes scroll {
