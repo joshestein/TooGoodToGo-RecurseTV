@@ -66,7 +66,6 @@ def create_app():
 
     @app.route("/")
     def tgtg_main():
-        print("render main")
         return render_template("index.html", items=items)
 
     return app
