@@ -33,7 +33,7 @@
 
             {% if 'average_overall_rating' in i.item %}
             {% if 'average_overall_rating' in i.item.average_overall_rating %}
-              <p>Rating: {{i.item.average_overall_rating.average_overall_rating|round(2)}}</p>
+              <div class="star-rating" style="--rating: {{i.item.average_overall_rating.average_overall_rating}};"></div>
             {% endif %}
           {% endif %}
 
@@ -79,7 +79,7 @@
             const centerLatitude = (recurseLatitude + pickupLatitude) / 2;
             const centerLongitude = (recurseLongitude + pickupLongitude) / 2;
 
-            const map = L.map(`map-${index}`, {zoomControl: false}).setView([centerLatitude, centerLongitude], 16);
+            const map = L.map(`map-${index}`, {zoomControl: false, dragging: false, scrollWheelZoom: false}).setView([centerLatitude, centerLongitude], 16);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
