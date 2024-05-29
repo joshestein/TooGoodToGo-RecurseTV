@@ -1,6 +1,7 @@
 import io
 from base64 import encodebytes
 from datetime import datetime
+import random
 
 import qrcode
 import requests
@@ -17,6 +18,9 @@ RADIUS = 5
 
 items = None
 
+def get_random_background():
+    backgrounds = ['cheese.jpg', 'loops.jpg', 'pie.jpg', 'salmon.jpg']
+    return random.choice(backgrounds)
 
 def get_osrm_directions(store_longitude, store_latitude):
     response = requests.get(
@@ -71,7 +75,7 @@ def create_app():
 
     @app.route("/")
     def tgtg_main():
-        return render_template("index.html", items=items)
+        return render_template("index.html", items=items, background=get_random_background())
 
     return app
 

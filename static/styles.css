@@ -5,8 +5,8 @@
 }
 
 body {
-  background-color: #fff;
-  background: url('/static/images/salmon.jpg');
+  /* background-color: #333; */
+  background-size: 200px;
 }
 
 .main-title-gif {
@@ -21,13 +21,13 @@ body {
 
 .items {
   top: 80px;
-  position: fixed;
-  padding: 16px;
+  /* position: fixed; */
+  padding: 24px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 24px;
   padding-bottom: -100vh;
-  animation: scroll 60s infinite linear;
+  /* animation: scroll 60s infinite linear; */
 }
 
 @keyframes scroll {
@@ -41,9 +41,11 @@ body {
 
 .item {
   position: relative;
-
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 24px #00000024;
 }
-
+/* 
 .item::after {
   z-index: 20;
   content: "";
@@ -67,7 +69,7 @@ body {
   background-image: url('/static/images/purplesparkles.gif');
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
 
 
@@ -102,7 +104,7 @@ body {
   padding: 16px;
   display: flex;
   justify-content: space-between;
-  background: #ffffffbb;
+  background: #ffffff;
 
 }
 
@@ -140,8 +142,8 @@ body {
 }
 
 .qr-code {
-  width: 80px;
-  height: 80px;
+  width: 112px;
+  height: 112px;
   border: 1px solid black;
 }
 
