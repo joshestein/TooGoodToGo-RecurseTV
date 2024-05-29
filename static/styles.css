@@ -18,11 +18,11 @@ body {
 }
 
 .items {
-  top: 80px;
-  /* position: fixed; */
+  top: 24px;
+  position: fixed;
   padding: 24px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   padding-bottom: -100vh;
   animation: scroll 60s infinite linear;
