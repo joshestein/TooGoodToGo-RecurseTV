@@ -19,11 +19,8 @@ items = None
 
 
 def get_osrm_directions(store_longitude, store_latitude):
-    headers = {
-        "Accept": "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-    }
     response = requests.get(
-        f"http://router.project-osrm.org/route/v1/foot/{LONGITUDE},{LATITUDE};{store_longitude},{store_latitude}?alternatives=false&geometries=geojson"
+        f"http://router.project-osrm.org/route/v1/foot/{LONGITUDE},{LATITUDE};{store_longitude},{store_latitude}?geometries=geojson"
     )
     return response
 
