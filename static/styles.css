@@ -15,8 +15,6 @@ body {
   left: 300px;
   position: fixed;
   z-index: 10;
-  /* mix-blend-mode: darken; */
-  /* filter: invert(1); */
 }
 
 .items {
@@ -27,7 +25,8 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   padding-bottom: -100vh;
-  /* animation: scroll 60s infinite linear; */
+  animation: scroll 60s infinite linear;
+  margin-bottom: -100%;
 }
 
 @keyframes scroll {
@@ -35,7 +34,7 @@ body {
     transform: translateY(0%)
   }
   100% {
-    transform: translateY(calc(-100% - 800px))
+    transform: translateY(calc(-100% + 800px))
   }
 }
 
@@ -43,7 +42,9 @@ body {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 24px #00000024;
+  background-color: #fff;
+  padding: 16px;
+  box-shadow: 0 0 8px 4px #00000033;
 }
 /* 
 .item::after {
@@ -101,7 +102,7 @@ body {
 
 
 .item-info {
-  padding: 16px;
+  padding-top: 16px;
   display: flex;
   justify-content: space-between;
   background: #ffffff;
