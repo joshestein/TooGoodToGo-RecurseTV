@@ -100,17 +100,18 @@
             const centerLatitude = (recurseLatitude + pickupLatitude) / 2;
             const centerLongitude = (recurseLongitude + pickupLongitude) / 2;
 
-            const map = L.map(`map-${index}`, {zoomControl: false, dragging: false, scrollWheelZoom: false}).setView([centerLatitude, centerLongitude], 16);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
+            const map = L.map(`map-${index}`, {zoomControl: false, dragging: false, scrollWheelZoom: false, attributionControl: false}).setView([centerLatitude, centerLongitude], 16);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(map);
 
-            const geoJSON = parsedItems[index]['osm_geojson']
-            L.geoJSON(geoJSON).addTo(map);
+            if ('osrm_geojson' in parsedItems[index]) {
+                const geoJSON = parsedItems[index]['osrm_geojson'];
+                const lgeoJSON= L.geoJSON(geoJSON);
+                map.fitBounds(lgeoJSON.getBounds());
+                lgeoJSON.addTo(map);
 
-            const durationInSeconds = geoJSON['features'][0]['properties']['summary']['duration'];
-            durations[index].innerText = `Walking distance: ${Math.ceil(durationInSeconds/ 60)} minutes`
+                const durationInSeconds = parsedItems[index]['osrm_duration'];
+                durations[index].innerText = `Walking distance: ${Math.ceil(durationInSeconds/ 60)} minutes`
+            }
         }
 
         for (const [index, _map] of maps.entries()) drawDirections(index);

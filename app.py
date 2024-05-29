@@ -9,7 +9,6 @@ from flask import Flask, render_template
 from flask_moment import Moment
 
 from client import Client
-from config import get_config
 
 BASE_SHARE_URL = "https://share.toogoodtogo.com"
 LATITUDE = 40.6913289
@@ -19,15 +18,12 @@ RADIUS = 5
 items = None
 
 
-def get_osm_directions(store_longitude, store_latitude):
-    config = get_config()
-    api_key = config["OSM_API_KEY"]
+def get_osrm_directions(store_longitude, store_latitude):
     headers = {
         "Accept": "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
     }
     response = requests.get(
-        f"https://api.openrouteservice.org/v2/directions/foot-walking?api_key={api_key}&start={LONGITUDE},{LATITUDE}&end={store_longitude},{store_latitude}",
-        headers=headers,
+        f"http://router.project-osrm.org/route/v1/foot/{LONGITUDE},{LATITUDE};{store_longitude},{store_latitude}?alternatives=false&geometries=geojson"
     )
     return response
 
@@ -38,8 +34,6 @@ def fetch_items(tgtg_client: Client):
     items = tgtg_client.client.get_items(
         favorites_only=False, latitude=LATITUDE, longitude=LONGITUDE, radius=RADIUS, with_stock_only=True, page_size=20
     )
-
-    print(items)
 
     # TODO: only extract important information to send to the client
     # TODO: either delete keys or buildup new list
@@ -57,8 +51,12 @@ def fetch_items(tgtg_client: Client):
         item["purchase_end"] = datetime.fromisoformat(item["purchase_end"])
         store_longitude = item["pickup_location"]["location"]["longitude"]
         store_latitude = item["pickup_location"]["location"]["latitude"]
-        osm_response = get_osm_directions(store_longitude=store_longitude, store_latitude=store_latitude)
-        item["osm_geojson"] = osm_response.json()
+
+        osrm_response = get_osrm_directions(store_longitude=store_longitude, store_latitude=store_latitude)
+        if osrm_response.status_code == 200:
+            osrm_response = osrm_response.json()
+            item["osrm_geojson"] = osrm_response["routes"][0]["geometry"]
+            item["osrm_duration"] = osrm_response["routes"][0]["duration"]
 
 
 def create_app():
