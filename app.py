@@ -39,6 +39,8 @@ def fetch_items(tgtg_client: Client):
         favorites_only=False, latitude=LATITUDE, longitude=LONGITUDE, radius=RADIUS, with_stock_only=True, page_size=20
     )
 
+    print(items)
+
     # TODO: only extract important information to send to the client
     # TODO: either delete keys or buildup new list
 

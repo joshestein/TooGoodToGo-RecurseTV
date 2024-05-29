@@ -10,13 +10,13 @@ body {
 }
 
 .main-title-gif {
-  width: calc(100vw - 16px);
-  height: 80px;
-  left: 8px;
+  width: calc(100vw - 600px);
+  height: 160px;
+  left: 300px;
   position: fixed;
   z-index: 10;
-  mix-blend-mode: difference;
-  filter: invert(1);
+  /* mix-blend-mode: darken; */
+  /* filter: invert(1); */
 }
 
 .items {
@@ -40,10 +40,37 @@ body {
 }
 
 .item {
-  /* background: #ffffffbb; */
-  /* background: url('/static/images/salmon.jpg') */
+  position: relative;
 
 }
+
+.item::after {
+  z-index: 20;
+  content: "";
+  width:176px;
+  height: 70px;
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('/static/images/hippo-2.gif');
+}
+
+.item::before {
+  z-index: 10;
+  content: "";
+  width:100%;
+  height: 40px;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background-image: url('/static/images/purplesparkles.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+
 .item-cover {
   height: 300px;
   position: relative;
@@ -120,4 +147,22 @@ body {
 
 .leaflet-map {
   height: 200px;
+  background-color: #fff;
+}
+
+.hippo-1,
+.hippo-3,
+.hippo-4 {
+  position: fixed;
+  z-index: 100;
+}
+
+.hippo-1 {
+  top: 20px;
+  left: 10px;
+}
+.hippo-3 {
+  bottom: 10px;
+  right: 10px;
+  transform: rotate(10deg);
 }
