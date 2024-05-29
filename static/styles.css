@@ -20,10 +20,10 @@ body {
 .items {
   top: 24px;
   position: fixed;
-  padding: 24px;
+  padding: 56px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 56px;
   padding-bottom: -100vh;
   animation: scroll 60s infinite linear;
   margin-bottom: -100%;
@@ -40,10 +40,10 @@ body {
 
 .item {
   position: relative;
-  border-radius: 8px;
+  border-radius: 16px;
   overflow: hidden;
   background-color: #fff;
-  padding: 16px;
+  padding: 24px;
   box-shadow: 0 0 8px 4px #00000033;
 }
 /* 
