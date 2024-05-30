@@ -21,7 +21,6 @@ def get_random_theme():
     themes = ['cheese', 'loops', 'pie', 'salmon']
     return random.choice(themes)
 
-
 def get_osrm_directions(store_longitude, store_latitude):
     response = requests.get(
         f"http://router.project-osrm.org/route/v1/foot/{LONGITUDE},{LATITUDE};{store_longitude},{store_latitude}?geometries=geojson"
