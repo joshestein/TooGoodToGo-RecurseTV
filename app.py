@@ -17,9 +17,11 @@ RADIUS = 5
 
 items = None
 
+
 def get_random_background():
-    backgrounds = ['cheese.jpg', 'loops.jpg', 'pie.jpg', 'salmon.jpg']
+    backgrounds = ["cheese.jpg", "loops.jpg", "pie.jpg", "salmon.jpg"]
     return random.choice(backgrounds)
+
 
 def get_osrm_directions(store_longitude, store_latitude):
     response = requests.get(
