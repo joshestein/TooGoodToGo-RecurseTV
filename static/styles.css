@@ -22,7 +22,7 @@ body {
   position: fixed;
   padding: 56px;
   
-  animation: scroll 7s infinite linear;
+  animation: scroll 70s infinite linear;
 }
 
 .items-grid {
