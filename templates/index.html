@@ -103,15 +103,22 @@
             const map = L.map(`map-${index}`, {zoomControl: false, dragging: false, scrollWheelZoom: false, attributionControl: false}).setView([centerLatitude, centerLongitude], 16);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(map);
 
-            if ('osrm_geojson' in parsedItems[index]) {
-                const geoJSON = parsedItems[index]['osrm_geojson'];
-                const lgeoJSON= L.geoJSON(geoJSON);
-                map.fitBounds(lgeoJSON.getBounds());
-                lgeoJSON.addTo(map);
+            if (!('osrm_geojson' in parsedItems[index])) return;
 
-                const durationInSeconds = parsedItems[index]['osrm_duration'];
-                durations[index].innerText = `Walking distance: ${Math.ceil(durationInSeconds/ 60)} minutes`
-            }
+            const geoJSON = parsedItems[index]['osrm_geojson'];
+            const lgeoJSON= L.geoJSON(geoJSON);
+            map.fitBounds(lgeoJSON.getBounds());
+            lgeoJSON.addTo(map);
+
+            const durationInSeconds = parsedItems[index]['osrm_duration'];
+            durations[index].innerText = `Walking distance: ${Math.ceil(durationInSeconds/ 60)} minutes`
+
+            const recurseIcon = L.icon({
+                iconUrl: '{{url_for('static', filename='images/recurse.svg')}}',
+                iconSize:     [30, 30], // size of the icon
+                iconAnchor:   [30, 15], // Point of the icon which will correspond to marker's location
+            });
+            L.marker([recurseLatitude, recurseLongitude], {icon: recurseIcon}).addTo(map);
         }
 
         for (const [index, _map] of maps.entries()) drawDirections(index);
