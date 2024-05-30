@@ -16,13 +16,14 @@
 
   </head>
   <body style="background: url(./static/images/{{theme}}.jpg); background-size: 25vw">
-    <!-- <img src="/static/images/title.gif" class="main-title-gif">
-    <img src="/static/images/hippo-1.gif" class="hippo-1">
-    <img src="/static/images/hippo-3.gif" class="hippo-3">
-    <img src="/static/images/hippo-4.gif" class="hippo-4"> -->
-
 
     <section class="items {{theme}}">
+      <div class="title-card">
+        <img src="./static/images/{{theme}}-title.png" alt="">
+      </div>
+      <div class="items-grid">
+
+
       {% for i in items %}
       <div class="item">
 
@@ -76,11 +77,13 @@
           <img class="qr-code" src="data:image/png;base64, {{i.qrcode}}" alt="Share link" />
           
         </div>
-
-
       </div>
 
+      
       {% endfor %}
+      
+    </div>
+    <div class="hippo-line"></div>
     </section>
   </body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
