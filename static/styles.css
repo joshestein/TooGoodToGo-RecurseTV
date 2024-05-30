@@ -25,7 +25,7 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 56px;
   padding-bottom: -100vh;
-  animation: scroll 60s infinite linear;
+  animation: scroll 70s infinite linear;
   margin-bottom: -100%;
 }
 
@@ -34,7 +34,7 @@ body {
     transform: translateY(0%)
   }
   100% {
-    transform: translateY(calc(-100% + 800px))
+    transform: translateY(calc(-100% + 2400px))
   }
 }
 
@@ -42,7 +42,7 @@ body {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: white;
   padding: 24px;
   box-shadow: 0 0 8px 4px #00000033;
 }
@@ -84,6 +84,8 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .item-title {
@@ -105,24 +107,25 @@ body {
   padding-top: 16px;
   display: flex;
   justify-content: space-between;
-  background: #ffffff;
-
 }
 
 .star-rating-wrapper {
+  margin-top: 8px;
   position: relative;
   display: inline-block;
-  height: 32px;
-  font-size: 32px;
+  height: 24px;
+  font-size: 24px;
   line-height: 1;
   width: auto;
+  text-shadow:  1px 1px 0px black;
 
 }
 
 .star-rating-empty {
   display: flex;
   z-index: 0;
-  color: silver;
+  color: rgb(216, 216, 216);
+  mix-blend-mode: multiply;
 }
 
 .star-rating-filled {
@@ -145,12 +148,17 @@ body {
 .qr-code {
   width: 112px;
   height: 112px;
+  border-radius: 8px;
   border: 1px solid black;
+  box-shadow: 2px 2px black;
 }
 
 .leaflet-map {
   height: 200px;
   background-color: #fff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
 }
 
 .hippo-1,
@@ -168,4 +176,20 @@ body {
   bottom: 10px;
   right: 10px;
   transform: rotate(10deg);
+}
+
+
+.salmon .item {
+  background-color: lightblue;
+}
+
+.cheese .item {
+  color: white;
+  background-color: orangered;
+}
+.pie .item {
+  background-color: pink;
+}
+.loops .item {
+  background-color: lightgreen;
 }

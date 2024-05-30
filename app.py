@@ -17,10 +17,9 @@ RADIUS = 5
 
 items = None
 
-
-def get_random_background():
-    backgrounds = ["cheese.jpg", "loops.jpg", "pie.jpg", "salmon.jpg"]
-    return random.choice(backgrounds)
+def get_random_theme():
+    themes = ['cheese', 'loops', 'pie', 'salmon']
+    return random.choice(themes)
 
 
 def get_osrm_directions(store_longitude, store_latitude):
@@ -73,7 +72,7 @@ def create_app():
 
     @app.route("/")
     def tgtg_main():
-        return render_template("index.html", items=items, background=get_random_background())
+        return render_template("index.html", items=items, theme=get_random_theme())
 
     return app
 

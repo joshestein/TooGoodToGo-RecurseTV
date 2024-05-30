@@ -15,14 +15,14 @@
             crossorigin=""/>
 
   </head>
-  <body style="background: url(./static/images/{{background}}); background-size: 25vw">
+  <body style="background: url(./static/images/{{theme}}.jpg); background-size: 25vw">
     <!-- <img src="/static/images/title.gif" class="main-title-gif">
     <img src="/static/images/hippo-1.gif" class="hippo-1">
     <img src="/static/images/hippo-3.gif" class="hippo-3">
     <img src="/static/images/hippo-4.gif" class="hippo-4"> -->
 
 
-    <section class="items">
+    <section class="items {{theme}}">
       {% for i in items %}
       <div class="item">
 
