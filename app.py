@@ -1,7 +1,6 @@
 import io
-from base64 import encodebytes
-from datetime import datetime
 import random
+from base64 import encodebytes
 
 import qrcode
 import requests
@@ -47,9 +46,6 @@ def fetch_items(tgtg_client: Client):
         qr_img.save(qr_bytes, format=qr_img.format)
         item["qrcode"] = encodebytes(qr_bytes.getvalue()).decode("ascii")
 
-        item["pickup_interval"]["start"] = datetime.fromisoformat(item["pickup_interval"]["start"])
-        item["pickup_interval"]["end"] = datetime.fromisoformat(item["pickup_interval"]["end"])
-        item["purchase_end"] = datetime.fromisoformat(item["purchase_end"])
         store_longitude = item["pickup_location"]["location"]["longitude"]
         store_latitude = item["pickup_location"]["location"]["latitude"]
 
