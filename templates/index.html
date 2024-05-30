@@ -115,10 +115,16 @@
 
             const recurseIcon = L.icon({
                 iconUrl: '{{url_for('static', filename='images/recurse.svg')}}',
-                iconSize:     [30, 30], // size of the icon
+                iconSize:     [30, 30],
                 iconAnchor:   [30, 15], // Point of the icon which will correspond to marker's location
             });
+            const droolIcon = L.icon({
+                iconUrl: '{{url_for('static', filename='images/hippo-4.gif')}}',
+                iconSize:     [30, 30],
+                iconAnchor:   [15, 43 / 2],
+            });
             L.marker([recurseLatitude, recurseLongitude], {icon: recurseIcon}).addTo(map);
+            L.marker([pickupLatitude, pickupLongitude], {icon: droolIcon}).addTo(map);
         }
 
         for (const [index, _map] of maps.entries()) drawDirections(index);
