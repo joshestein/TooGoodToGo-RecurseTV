@@ -19,7 +19,7 @@ body {
 
 .items {
   top: 24px;
-  position: fixed;
+  /* position: fixed; */
   padding: 56px;
   
   animation: scroll 70s infinite linear;
