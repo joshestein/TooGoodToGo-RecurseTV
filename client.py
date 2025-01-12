@@ -10,6 +10,5 @@ class Client:
         self.client = TgtgClient(
             access_token=config["ACCESS_TOKEN"],
             refresh_token=config["REFRESH_TOKEN"],
-            user_id=config["USER_ID"],
             cookie=config["COOKIE"],
         )
